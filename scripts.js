@@ -17,7 +17,7 @@ function Gameboard() {
 		if (board[row][column].getValue() === 0) {
 			board[row][column].placeToken(playerToken);
 		}
-		else return;
+		else return; // add logic to repeat move if previous attempt is invalid
 	};
 
 	const printBoard = () => {
