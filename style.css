@@ -10,12 +10,51 @@ body {
 .top-navigation {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 90%;
 	margin: 12px 120px;
 }
 
-header button {
-	
+.retro-button {
+	background-color: #D9D9D9;
+	border: 2px solid #422800;
+	border-radius: 10px;
+	box-shadow: #422800 4px 4px 0 0;
+	color: #422800;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 600;
+	font-size: 18px;
+	padding: 14px 24px;
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+  
+.retro-button:hover {
+	background-color: #fff;
+}
+  
+.retro-button:active {
+	box-shadow: #422800 2px 2px 0 0;
+	transform: translate(2px, 2px);
+}
+
+.default-button {
+	font-size: 16px;
+	font-weight: 600;
+	background-color: #000000;
+	color: white;
+	cursor: pointer;
+	padding: 14px 24px;
+	border: 0px;
+	border-radius: 8px;
+	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.05); 
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.05);
+	text-align: center;
+	text-decoration: none;
 }
 
 .props {
@@ -23,10 +62,9 @@ header button {
 	font-weight: bold;
 }
 
-
-
 h1 {
 	font-size: 64px;
+	margin-top: 10px;
 	margin-bottom: 18px;
 }
 
@@ -64,6 +102,20 @@ h1 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
+	border: 2px solid white;
+}
+
+/* Original Version */
+
+.cell {
+	display: grid;
+	grid-template-columns: repeat(3, 60px);
+	grid-template-rows: repeat(3, 60px);
+	justify-content: center;
+	max-width: 600px;
+	max-height: 600px;
+	padding: 5px;
 	cursor: pointer;
 	border: 2px solid white;
 }
