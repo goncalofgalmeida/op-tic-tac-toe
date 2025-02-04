@@ -83,31 +83,6 @@ h1 {
 	max-height: 600px;
 }
 
-.main-cell {
-	display: grid;
-	/* background-color: rgb(255, 229, 171); */
-	grid-template-columns: repeat(3, 60px);
-	grid-template-rows: repeat(3, 60px);
-	justify-content: center;
-	max-width: 600px;
-	max-height: 600px;
-	padding: 5px;
-
-}
-
-.main-cell
-.inner-cell{
-	width: auto;
-	height: auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	border: 2px solid white;
-}
-
-/* Original Version */
-
 .cell {
 	display: grid;
 	grid-template-columns: repeat(3, 60px);
