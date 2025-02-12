@@ -55,6 +55,7 @@ function GameController(
 	];
 
 	let activePlayer = players[0];
+	let gameOver = false;
 
 	const switchPlayerTurn = () => {
 		if (activePlayer === players[0]) {
@@ -95,16 +96,17 @@ function GameController(
 	};
 
 	const playRound = (row, column) => {
+		if (gameOver) return;
+
 		board.markCell(row, column, getActivePlayer().token);
 
 		let winner = checkWinner(board.getBoard());
-		if (winner === 1) {
-			(console.log("Player 1 is the winner"));
-			return;
-		} else if (winner === 2) {
-			(console.log("Player 2 is the winner"));
+		if (winner !== null) {
+			(console.log(`Player ${winner} is the winner`));
+			gameOver = true;
 			return;
 		}
+
 		switchPlayerTurn();
 		printNewRound();
 	};
