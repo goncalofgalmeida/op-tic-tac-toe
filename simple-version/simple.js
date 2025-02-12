@@ -113,7 +113,23 @@ function GameController(
 
 	printNewRound();
 
-	return { playRound };
+	return { playRound, getActivePlayer, getBoard: board.getBoard };
 }
 
-const game = GameController();
+function ScreenController() {
+	const game = GameController();
+	const playerTurnDiv = document.querySelector('.turn');
+	const boardDiv = document.querySelector('.game-board');
+	const cells = document.querySelectorAll('.cell');
+
+	const updateScreen = () => {
+		cells.forEach(cell => cell.textContent = "");
+
+		const activePlayer = game.getActivePlayer();
+		playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+
+	}
+	updateScreen();
+}
+
+ScreenController();
