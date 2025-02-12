@@ -69,13 +69,42 @@ function GameController(
 	const printNewRound = () => {
 		board.printBoard();
 		console.log(`${getActivePlayer().name}'s turn.`)
-	}
+	};
+
+	const checkWinner = (board) => {
+		const size = board.length;
+
+		for (let i = 0; i < size; i++) {
+			if (board[i][0].getValue() !== 0 && board[i].every(cell => cell.getValue() === board[i][0].getValue())) {
+				return board[i][0].getValue();
+			}
+			if (board[0][i].getValue() !== 0 && board.every(row => row[i].getValue() === board[0][i].getValue())) {
+				return board[0][i].getValue();
+			}
+		}
+
+		if (board[0][0].getValue() !== 0 && board.every((row, i) => row[i].getValue() === board[0][0].getValue())) {
+			return board[0][0].getValue();
+		}
+
+		if (board[0][size - 1].getValue() !== 0 && board.every((row, i) => row[size - 1 - i].getValue() === board[0][size - 1].getValue())) {
+			return board[0][size - 1].getValue();
+		}
+
+		return null;
+	};
 
 	const playRound = (row, column) => {
 		board.markCell(row, column, getActivePlayer().token);
 
-		// place winner check logic here
-
+		let winner = checkWinner(board.getBoard());
+		if (winner === 1) {
+			(console.log("Player 1 is the winner"));
+			return;
+		} else if (winner === 2) {
+			(console.log("Player 2 is the winner"));
+			return;
+		}
 		switchPlayerTurn();
 		printNewRound();
 	};
