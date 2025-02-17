@@ -147,10 +147,17 @@ function ScreenController() {
 
 		playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
 
+		const convertToken = (token) => {
+			if (token === 1)
+				return "X"
+			else if (token === 2)
+				return "O"
+		};
+
 		document.querySelectorAll(".cell").forEach(button => {
 			const row = parseInt(button.dataset.row);
 			const col = parseInt(button.dataset.col);
-			button.textContent = board[row][col].getValue();
+			button.textContent = convertToken(board[row][col].getValue());
 		});
 	};
 
