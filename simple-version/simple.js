@@ -111,15 +111,22 @@ function GameController(
 		printNewRound();
 	};
 
+	const resetGame = () => {
+		board.getBoard().forEach(row => row.forEach(cell => cell.placeToken(null)));
+		activePlayer = players[0];
+		gameOver = 0;
+	};
+
 	printNewRound();
 
-	return { playRound, getActivePlayer, getBoard: board.getBoard };
+	return { playRound, getActivePlayer, getBoard: board.getBoard, resetGame };
 }
 
 function ScreenController() {
 	const game = GameController();
 	const boardDiv = document.querySelector('.game-board');
 	const playerTurnDiv = document.querySelector('.turn');
+	const restartButton = document.querySelector('.restart-button');
 
 	const createBoard = () => {
 		boardDiv.innerHTML = "";
@@ -172,6 +179,13 @@ function ScreenController() {
 
 		updateScreen();	
 	};
+
+	const handleRestart = () => {
+		game.resetGame();
+		updateScreen();
+	};
+
+	restartButton.addEventListener("click", handleRestart);
 
 	createBoard();
 	updateScreen();
