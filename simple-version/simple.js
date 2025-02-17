@@ -9,10 +9,10 @@ function Gameboard() {
 	const getBoard = () => board;
 
 	const markCell = (row, column, playerToken) => {
-		if (board[row][column].getValue() === 0) {
+		if (board[row][column].getValue() === null) {
 			board[row][column].placeToken(playerToken);
 		}
-		else return; // add logic to repeat move if previous attempt is invalid
+		else return;
 	};
 
 	const printBoard = () => {
@@ -25,7 +25,7 @@ function Gameboard() {
 
 // Represents each square of the playing board
 function Cell() {
-	let value = 0;
+	let value = null;
 
 	const placeToken = (player) => {
 		value = player;
@@ -76,19 +76,19 @@ function GameController(
 		const size = board.length;
 
 		for (let i = 0; i < size; i++) {
-			if (board[i][0].getValue() !== 0 && board[i].every(cell => cell.getValue() === board[i][0].getValue())) {
+			if (board[i][0].getValue() !== null && board[i].every(cell => cell.getValue() === board[i][0].getValue())) {
 				return board[i][0].getValue();
 			}
-			if (board[0][i].getValue() !== 0 && board.every(row => row[i].getValue() === board[0][i].getValue())) {
+			if (board[0][i].getValue() !== null && board.every(row => row[i].getValue() === board[0][i].getValue())) {
 				return board[0][i].getValue();
 			}
 		}
 
-		if (board[0][0].getValue() !== 0 && board.every((row, i) => row[i].getValue() === board[0][0].getValue())) {
+		if (board[0][0].getValue() !== null && board.every((row, i) => row[i].getValue() === board[0][0].getValue())) {
 			return board[0][0].getValue();
 		}
 
-		if (board[0][size - 1].getValue() !== 0 && board.every((row, i) => row[size - 1 - i].getValue() === board[0][size - 1].getValue())) {
+		if (board[0][size - 1].getValue() !== null && board.every((row, i) => row[size - 1 - i].getValue() === board[0][size - 1].getValue())) {
 			return board[0][size - 1].getValue();
 		}
 
@@ -159,7 +159,7 @@ function ScreenController() {
 		const col = parseInt(event.target.dataset.col);
 		const board = game.getBoard();
 
-		if (board[row][col].getValue() !== 0) return;
+		if (board[row][col].getValue() !== null) return;
 		
 		game.playRound(row, col);
 
