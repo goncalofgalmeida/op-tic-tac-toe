@@ -16,8 +16,7 @@ function Gameboard() {
 	};
 
 	const printBoard = () => {
-		const filledBoard = board.map((row) => row.map((cell) => cell.getValue()))
-		console.log(filledBoard);
+		const filledBoard = board.map((row) => row.map((cell) => cell.getValue()));
 	};
 
 	return { getBoard, markCell, printBoard };
@@ -69,7 +68,6 @@ function GameController(
 
 	const printNewRound = () => {
 		board.printBoard();
-		console.log(`${getActivePlayer().name}'s turn.`)
 	};
 
 	const checkWinner = (board) => {
@@ -95,6 +93,8 @@ function GameController(
 		return null;
 	};
 
+	const isBoardFull = () => board.getBoard().every(row => row.every(cell => cell.getValue() !== null));
+
 	const playRound = (row, column) => {
 		if (gameOver) return;
 
@@ -102,7 +102,10 @@ function GameController(
 
 		let winner = checkWinner(board.getBoard());
 		if (winner !== null) {
-			(console.log(`Player ${winner} is the winner`));
+			gameOver = true;
+			return;
+		}
+		if (isBoardFull()) {
 			gameOver = true;
 			return;
 		}
@@ -114,12 +117,12 @@ function GameController(
 	const resetGame = () => {
 		board.getBoard().forEach(row => row.forEach(cell => cell.placeToken(null)));
 		activePlayer = players[0];
-		gameOver = 0;
+		gameOver = false;
 	};
 
 	printNewRound();
 
-	return { playRound, getActivePlayer, getBoard: board.getBoard, resetGame };
+	return { playRound, getActivePlayer, getBoard: board.getBoard, checkWinner, isBoardFull, resetGame };
 }
 
 function ScreenController() {
@@ -156,9 +159,9 @@ function ScreenController() {
 
 		const convertToken = (token) => {
 			if (token === 1)
-				return "X"
+				return "X";
 			else if (token === 2)
-				return "O"
+				return "O";
 		};
 
 		document.querySelectorAll(".cell").forEach(button => {
@@ -177,7 +180,17 @@ function ScreenController() {
 		
 		game.playRound(row, col);
 
-		updateScreen();	
+		updateScreen();
+
+		const winner = game.checkWinner(board);
+		if (winner) {
+			playerTurnDiv.textContent = `${game.getActivePlayer().name} won!`;
+			return;
+		}
+		if (game.isBoardFull()) {
+			playerTurnDiv.textContent = `It's a draw!`;
+			return;
+		}
 	};
 
 	const handleRestart = () => {
