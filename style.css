@@ -1,3 +1,6 @@
+/* CSS resets */
+
+
 body {
 	margin: 0;
 	display: flex;
@@ -42,23 +45,7 @@ body {
 	transform: translate(2px, 2px);
 }
 
-.default-button {
-	font-size: 16px;
-	font-weight: 600;
-	background-color: #000000;
-	color: white;
-	cursor: pointer;
-	padding: 14px 24px;
-	border: 0px;
-	border-radius: 8px;
-	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.05); 
-	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.05);
-	text-align: center;
-	text-decoration: none;
-}
-
 .props {
-	font-size: 20px;
 	font-size: clamp(14px, 1.25vw, 20px);
 	font-weight: bold;
 }
@@ -74,22 +61,45 @@ h1 {
 	color: #828282;
 }
 
+.masked-text {
+    font-size: clamp(9px, 1.12vw, 16px);
+    font-weight: bold;
+    color: transparent;
+    background-image: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=1429&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+	background-size: 200%;
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-background 2s infinite alternate linear;
+}
+
+@keyframes animate-background {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .game-board {
+	resize: both;
 	display: grid;
-	background-color: #D9D9D9;
-	grid-template-columns: repeat(3, 10vw);
-	grid-template-rows: repeat(3, 10vw);
-	/* max-width: 600px;
-	max-height: 600px; */
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	aspect-ratio: 1 / 1;
+	max-width: 500px;
+	width: 90%;
 }
 
 .cell {
-	display: grid;
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* padding: 5px; */
+	background-color: #D9D9D9;
 	cursor: pointer;
-	border: 2px solid white;
-	font-size: 3vw;
+	border: clamp(0.5px, 1vw, 2px) solid white;
+	font-size: clamp(16px, 5vw, 48px);
 	font-weight: 600;
 }
