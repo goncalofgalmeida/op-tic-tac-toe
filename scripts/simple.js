@@ -35,7 +35,7 @@ function Cell() {
 	return { placeToken, getValue };
 }
 
-// Controlls flow and state of the game, turns and winners
+// Controls flow and state of the game, turns and winners
 function GameController(
 	playerOneName = "Player One",
 	playerTwoName = "Player Two"
