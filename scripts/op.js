@@ -72,6 +72,10 @@ function GameController(
 		board.printBoard();
 	};
 
+	const getPlayerFirstLoggedMove = () => getActivePlayer().movesLog[0];
+	
+	const getMovesCount = () => getActivePlayer().movesLog.length;
+
 	const updatePlaysLog = (row, column) => {
 		const playsLog = getActivePlayer().movesLog;
 
@@ -142,7 +146,16 @@ function GameController(
 
 	printNewRound();
 
-	return { playRound, getActivePlayer, getBoard: board.getBoard, checkWinner, isBoardFull, resetGame };
+	return {
+		playRound,
+		getActivePlayer,
+		getPlayerFirstLoggedMove,
+		getMovesCount,
+		getBoard: board.getBoard,
+		checkWinner,
+		isBoardFull,
+		resetGame
+	};
 }
 
 function ScreenController() {
@@ -158,14 +171,16 @@ function ScreenController() {
 		board.forEach((row, rowIndex) => {
 			row.forEach((cellObj, colIndex) => {
 				const button = document.createElement("button");
+				const span = document.createElement("span");
+				span.textContent = cellObj.getValue();
 				button.classList.add("cell");
-				button.textContent = cellObj.getValue();
 
 				button.dataset.row = rowIndex;
 				button.dataset.col = colIndex;
 
 				button.addEventListener("click", handleCellClick);
 
+				button.appendChild(span);
 				boardDiv.appendChild(button);
 			});
 		});
@@ -190,15 +205,24 @@ function ScreenController() {
 		document.querySelectorAll(".cell").forEach(button => {
 			const row = parseInt(button.dataset.row);
 			const col = parseInt(button.dataset.col);
+			const span = button.querySelector("span");
 			const cellValue = board[row][col].getValue();
+
+			const winner = game.checkWinner(board);
+			const movesCount = game.getMovesCount();
+			const firstMove = game.getPlayerFirstLoggedMove();
+			span.classList.remove("faded");
+			if (winner === null && movesCount === 3 && firstMove !== undefined && row === firstMove[0] && col === firstMove[1]) {
+				span.classList.add("faded");
+			}
 
 			button.classList.remove("player1", "player2");
 			
 			if (cellValue !== null) {
 				button.classList.add(playerColors[cellValue]);
-				button.textContent = tokenSymbols[cellValue];
+				span.textContent = tokenSymbols[cellValue];
 			} else {
-				button.textContent = "";
+				span.textContent = "";
 			}
 		});
 	};
