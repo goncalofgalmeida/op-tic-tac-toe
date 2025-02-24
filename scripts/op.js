@@ -161,7 +161,7 @@ function GameController(
 function ScreenController() {
 	const game = GameController();
 	const boardDiv = document.querySelector('.game-board');
-	const playerTurnDiv = document.querySelector('.turn');
+	const statusDiv = document.querySelector('.status');
 	const restartButton = document.querySelector('.restart-button');
 
 	const createBoard = () => {
@@ -190,7 +190,7 @@ function ScreenController() {
 		const board = game.getBoard();
 		const activePlayer = game.getActivePlayer();
 
-		playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+		statusDiv.textContent = `${activePlayer.name}'s turn`;
 
 		const tokenSymbols = {
 			1: "X",
@@ -240,11 +240,11 @@ function ScreenController() {
 
 		const winner = game.checkWinner(board);
 		if (winner) {
-			playerTurnDiv.textContent = `${game.getActivePlayer().name} won!`;
+			statusDiv.textContent = `${game.getActivePlayer().name} won!`;
 			return;
 		}
 		if (game.isBoardFull()) {
-			playerTurnDiv.textContent = `It's a draw!`;
+			statusDiv.textContent = `It's a draw!`;
 			return;
 		}
 	};
