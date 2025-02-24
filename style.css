@@ -103,3 +103,13 @@ h1 {
 	font-size: clamp(16px, 5vw, 48px);
 	font-weight: 600;
 }
+
+.player1 {
+	color: black;
+}
+
+.player2 {
+	color: purple;
+}
+
+/* Class para o token que vai desaparecer no move seguinte */
