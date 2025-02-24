@@ -9,7 +9,7 @@ function Gameboard() {
 	const getBoard = () => board;
 
 	const markCell = (row, column, playerToken) => {
-		if (board[row][column].getValue() === null) {
+		if (board[row][column].getValue() === null || playerToken === null) {
 			board[row][column].placeToken(playerToken);
 		}
 		else return;
@@ -45,11 +45,13 @@ function GameController(
 	const players = [
 		{
 			name: playerOneName,
-			token: 1
+			token: 1,
+			movesLog: []
 		},
 		{
 			name: playerTwoName,
-			token: 2
+			token: 2,
+			movesLog: []
 		}
 	];
 
@@ -69,6 +71,19 @@ function GameController(
 	const printNewRound = () => {
 		board.printBoard();
 	};
+
+	const updatePlaysLog = (row, column) => {
+		const playsLog = getActivePlayer().movesLog;
+
+		playsLog.push([row, column]);
+		if (playsLog.length > 3) {
+			const moveIndex = playsLog.shift();
+			console.log("FIRST MOVE LOG:", moveIndex);
+			deleteMove(moveIndex[0], moveIndex[1], null);
+		}
+	};
+
+	const deleteMove = (row, column) =>	board.markCell(row, column, null);
 
 	const checkWinner = (board) => {
 		const size = board.length;
@@ -99,6 +114,8 @@ function GameController(
 		if (gameOver) return;
 
 		board.markCell(row, column, getActivePlayer().token);
+		updatePlaysLog(row, column);
+		console.log(getActivePlayer().movesLog);
 
 		let winner = checkWinner(board.getBoard());
 		if (winner !== null) {
@@ -118,6 +135,9 @@ function GameController(
 		board.getBoard().forEach(row => row.forEach(cell => cell.placeToken(null)));
 		activePlayer = players[0];
 		gameOver = false;
+		players[0].movesLog = [];
+		players[1].movesLog = [];
+		console.clear();
 	};
 
 	printNewRound();
@@ -157,17 +177,29 @@ function ScreenController() {
 
 		playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
 
-		const convertToken = (token) => {
-			if (token === 1)
-				return "X";
-			else if (token === 2)
-				return "O";
+		const tokenSymbols = {
+			1: "X",
+			2: "O"
 		};
+
+		const playerColors = {
+			1: "player1",
+			2: "player2"
+		}
 
 		document.querySelectorAll(".cell").forEach(button => {
 			const row = parseInt(button.dataset.row);
 			const col = parseInt(button.dataset.col);
-			button.textContent = convertToken(board[row][col].getValue());
+			const cellValue = board[row][col].getValue();
+
+			button.classList.remove("player1", "player2");
+			
+			if (cellValue !== null) {
+				button.classList.add(playerColors[cellValue]);
+				button.textContent = tokenSymbols[cellValue];
+			} else {
+				button.textContent = "";
+			}
 		});
 	};
 
