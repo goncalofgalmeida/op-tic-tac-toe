@@ -120,12 +120,51 @@ h1 {
 	color: rgba(128, 0, 128, 1);
 }
 
+@keyframes fade-loop {
+	0% { opacity: 1; }
+	50% { opacity: 0.2; }
+	100% { opacity: 1; }
+}
+
 .faded {
-	opacity: 0.5;
+	animation: 1.25s fade-loop infinite ease-in-out;
+}
+
+@keyframes border-pulse {
+	0% { border: 3px solid plum; }
+	50% { border: 6px solid plum; }
+	100% { border: 3px solid plum; }
+  }
+  
+.winner-cell {
+	animation: border-pulse 1s infinite;
+}
+
+footer {
+	display: none;
 }
 
 /* phones, 600px and down */
 @media only screen and (max-width: 600px) {
+	body {
+		min-height: 100vh;
+	}
+
+	.header-group,
+	footer {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.top-navigation {
+		display: none;
+	}
+
+	footer {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
 }
 
 /* laptops/desktops, 992px and up */
