@@ -17,6 +17,11 @@ body {
 	margin: 12px 120px;
 }
 
+.props {
+	font-size: clamp(14px, 1.25vw, 20px);
+	font-weight: bold;
+}
+
 .retro-button {
 	background-color: #D9D9D9;
 	border: 2px solid #422800;
@@ -26,7 +31,7 @@ body {
 	cursor: pointer;
 	display: inline-block;
 	font-weight: 600;
-	font-size: 18px;
+	font-size: 16px;
 	padding: 14px 24px;
 	text-align: center;
 	text-decoration: none;
@@ -44,15 +49,10 @@ body {
 	transform: translate(2px, 2px);
 }
 
-.props {
-	font-size: clamp(14px, 1.25vw, 20px);
-	font-weight: bold;
-}
-
 h1 {
-	font-size: clamp(22px, 5vw, 64px);
-	margin-top: 10px;
-	margin-bottom: 18px;
+	font-size: clamp(32px, 5vw, 64px);
+	margin-top: 0.5em;
+	margin-bottom: 0.25em;
 }
 
 .header-group p {
@@ -126,7 +126,6 @@ h1 {
 
 /* phones, 600px and down */
 @media only screen and (max-width: 600px) {
-
 }
 
 /* laptops/desktops, 992px and up */
