@@ -137,6 +137,18 @@ h1 {
 	color: rgba(128, 0, 128, 1);
 }
 
+.restart-button {
+	background-color: black;
+	color: white;
+	font-size: clamp(12px, 1vw, 16px);
+	font-weight: bold;
+	padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 24px);
+	border: 0px;
+	border: clamp(0.5px, 1vw, 2px) solid white;
+	border-radius: max(6px, 1%);
+	cursor: pointer;
+}
+
 @keyframes fade-loop {
 	0% { opacity: 1; }
 	50% { opacity: 0.2; }
