@@ -128,7 +128,7 @@ function GameController(
 function ScreenController() {
 	const game = GameController();
 	const boardDiv = document.querySelector('.game-board');
-	const playerTurnDiv = document.querySelector('.turn');
+	const playerTurnDiv = document.querySelector('.status');
 	const restartButton = document.querySelector('.restart-button');
 
 	const createBoard = () => {
