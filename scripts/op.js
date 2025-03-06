@@ -37,8 +37,8 @@ function Cell() {
 
 // Controls flow and state of the game, turns and winners
 function GameController(
-	playerOneName = "Player One",
-	playerTwoName = "Player Two"
+	playerOneName = "Player X",
+	playerTwoName = "Player O"
 ) {
 	const board = Gameboard();
 
@@ -241,6 +241,7 @@ function ScreenController() {
 		const winner = game.checkWinner(board);
 		if (winner) {
 			statusDiv.textContent = `${game.getActivePlayer().name} won!`;
+			statusDiv.classList.add("winner-announcement");
 			return;
 		}
 		if (game.isBoardFull()) {
@@ -251,6 +252,7 @@ function ScreenController() {
 
 	const handleRestart = () => {
 		game.resetGame();
+		statusDiv.classList.remove("winner-announcement");
 		updateScreen();
 	};
 

@@ -16,7 +16,7 @@ body {
     box-sizing: inherit;
 }
 
-.top-navigation {
+/* .top-navigation {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -24,39 +24,7 @@ body {
 	max-width: 1200px;
 	margin: 12px auto;
 	padding: 0 20px;
-}
-
-.props {
-	font-size: clamp(12px, 1vw, 16px);
-	font-weight: bold;
-}
-
-.retro-button {
-	background-color: #D9D9D9;
-	border: 2px solid #422800;
-	border-radius: 10px;
-	box-shadow: #422800 4px 4px 0 0;
-	color: #422800;
-	cursor: pointer;
-	display: inline-block;
-	font-size: clamp(12px, 1vw, 16px);
-	font-weight: 600;
-	padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 24px);
-	text-align: center;
-	text-decoration: none;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
-}
-  
-.retro-button:hover {
-	background-color: #fff;
-}
-  
-.retro-button:active {
-	box-shadow: #422800 2px 2px 0 0;
-	transform: translate(2px, 2px);
-}
+} */
 
 .header-group {
 	text-align: center;
@@ -72,7 +40,7 @@ h1 {
 	margin-bottom: 0.25em;
 }
 
-.header-group p {
+.tagline {
 	font-size: clamp(9px, 1.12vw, 16px);
 	color: #828282;
 	margin: 0.5em 0;
@@ -100,6 +68,18 @@ h1 {
     }
 }
 
+.status {
+	background-color: white;
+	border: clamp(0.5px, 1vw, 2px) solid white;
+	border-radius: 50px;
+	margin: 2% 0 0 0;
+	font-size: clamp(9px, 1.12vw, 24px);
+	font-weight: bold;
+	padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 24px);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	transition: all 0.2 ease;
+}
+
 .game-board {
 	resize: both;
 	display: grid;
@@ -121,12 +101,14 @@ h1 {
 	border-radius: 10%;
 	margin: 3%;
 	font-size: clamp(16px, 5vw, 48px);
-	font-weight: 600;
+	font-weight: bold;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	transition: all 0.2 ease;
 }
 
 .cell:hover {
 	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-	transform: translateY(-2px);
+	transform: translateY(-3px);
 }
 
 .player1 {
@@ -137,16 +119,42 @@ h1 {
 	color: rgba(128, 0, 128, 1);
 }
 
-.restart-button {
-	background-color: black;
-	color: white;
+.buttons-group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.version-button {
+	background-color: white;
+	color: rgba(0, 0, 0, 1);
+	border: clamp(0.5px, 1vw, 2px) solid rgba(0, 0, 0, 1);
+	border-radius: max(6px, 1%);
+	cursor: pointer;
 	font-size: clamp(12px, 1vw, 16px);
 	font-weight: bold;
 	padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 24px);
-	border: 0px;
-	border: clamp(0.5px, 1vw, 2px) solid white;
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.restart-button {
+	background-color: black;
+	color: white;
+	border: clamp(0.5px, 1vw, 2px) solid rgba(0, 0, 0, 1);
 	border-radius: max(6px, 1%);
 	cursor: pointer;
+	font-size: clamp(12px, 1vw, 16px);
+	font-weight: bold;
+	padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 24px);
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
 }
 
 @keyframes fade-loop {
@@ -159,30 +167,20 @@ h1 {
 	animation: 1.25s fade-loop infinite ease-in-out;
 }
 
-@keyframes border-pulse {
-	0% { border: 3px solid plum; }
-	50% { border: 6px solid plum; }
-	100% { border: 3px solid plum; }
-}
-  
-.winner-cell {
-	animation: border-pulse 1s infinite;
+@keyframes winner {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.1); }
+	100% { transform: scale(1); }
 }
 
-footer {
-	display: none;
-	width: 90%;
-	max-width: 500px;
-	margin: 20px auto;
+.winner-announcement {
+	animation: winner 1s ease infinite;
+	background-color: #f7f1fc;
+	border: 2px solid #8e44ad;
 }
 
 /* Small laptops (14" and similar) */
 @media only screen and (max-width: 1540px) {
-    .top-navigation {
-        margin: 8px auto;
-        padding: 0 10px;
-    }
-    
     .game-board {
         width: min(75%, 400px);
     }
@@ -194,11 +192,7 @@ footer {
 
 /* Tablets and small laptops */
 @media only screen and (max-width: 992px) {
-    .top-navigation {
-        width: 95%;
-    }
-    
-    .game-board {
+	.game-board {
         width: min(85%, 350px);
     }
     
@@ -214,16 +208,6 @@ footer {
         padding: 10px 0;
     }
 
-    .header-group,
-    footer {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .top-navigation {
-        display: none;
-    }
-
     .game-board {
         width: min(90%, 300px);
     }
@@ -231,12 +215,5 @@ footer {
     .cell {
         margin: 2%;
         font-size: clamp(14px, 8vw, 32px);
-    }
-
-    footer {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        padding: 0 15px;
     }
 }
